@@ -956,13 +956,22 @@
             }
         }
 
-        // 結果表示
+        // 結果表示（修正版）
         function showResult() {
             // 集計
             const scores = { A: 0, B: 0, C: 0, D: 0 };
-            Object.values(answers).forEach(answer => {
-                scores[answer]++;
-            });
+            
+            // デバッグ用ログ
+            console.log('全回答:', answers);
+            
+            // 回答を集計
+            for (let i = 1; i <= questions.length; i++) {
+                if (answers[i]) {
+                    scores[answers[i]]++;
+                }
+            }
+            
+            console.log('集計結果:', scores);
             
             // 最多回答を取得
             const maxScore = Math.max(...Object.values(scores));
@@ -994,17 +1003,18 @@
                         <p>迷うことがあっても大丈夫。少しずつ、自分らしい人生を歩んでいきましょう。</p>
                     </div>
                     
-                  <div style="margin-top: 25px; padding: 20px; background-color: #f0f0f0; border-radius: 10px; text-align: left;">
-    <p><strong>■ より深く自分らしさについて学びたい方へ</strong></p>
-    <p>「学生時代の不安な今を抜け出して、自分らしいミライへ」ブログシリーズをご覧ください（全て無料記事）</p>
-    <p>第1回：「みんなと同じじゃダメ？」</p>
-    <p>第2回：4つの「らしさ」を深く知る</p>
-    <p>第3回：就活で「自分を偽る」学生たち</p>
-    <p>第4回：成長する学生の共通点</p>
-    <p><a href="https://note.com/https://note.com/sanyou34/n/n09a542d8c033_blank" style="color: #667eea; text-decoration: underline;">→ noteで読む</a></p>
-    <p>🏢 一般社団法人ミライゴト</p>
-    <p>■ お問い合わせ：miraigoto34@gmail.com</p>
-</div>
+                    <div style="margin-top: 25px; padding: 20px; background-color: #f0f0f0; border-radius: 10px; text-align: left;">
+                        <p><strong>■ より深く自分らしさについて学びたい方へ</strong></p>
+                        <p>角田千鶴のnote「自分らしさ、迷子中。」</p>
+                        <p>～学生時代の不安な今を抜け出して、自分らしいミライへ～（全4回・全て無料記事）</p>
+                        <p>🌸 第1回：みんなと違うのが怖いあなたへ</p>
+                        <p>🌸 第2回：あなたの「当たり前」が、実は強みかもしれない</p>
+                        <p>🌸 第3回：就活で「いい子」になろうとしてない？</p>
+                        <p>🌸 第4回：迷いながらも成長していく人の共通点</p>
+                        <p><a href="https://note.com/sanyou34/n/n09a542d8c033" target="_blank" style="color: #667eea; text-decoration: underline;">→ noteで読む</a></p>
+                        <p>🏢 一般社団法人ミライゴト</p>
+                        <p>■ お問い合わせ：miraigoto34@gmail.com</p>
+                    </div>
                     
                     <button class="btn btn-primary" onclick="restartDiagnosis()" style="margin-top: 25px;">
                         もう一度診断する
