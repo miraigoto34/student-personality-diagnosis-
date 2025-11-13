@@ -448,10 +448,10 @@
     </div>
 
     <script>
-        // 質問データ
+        // 質問データ（各質問のIDを0から19に変更）
         const questions = [
             {
-                id: 1,
+                id: 0,
                 title: "友達との時間について",
                 text: "友達との時間で一番大切にしているのは？",
                 options: [
@@ -462,7 +462,7 @@
                 ]
             },
             {
-                id: 2,
+                id: 1,
                 title: "勉強やバイトでの成果について",
                 text: "授業やバイトで成果を実感するのは？",
                 options: [
@@ -473,7 +473,7 @@
                 ]
             },
             {
-                id: 3,
+                id: 2,
                 title: "将来の収入について",
                 text: "将来の収入について、どう考える？",
                 options: [
@@ -484,7 +484,7 @@
                 ]
             },
             {
-                id: 4,
+                id: 3,
                 title: "人とのつながりについて",
                 text: "人とのつながりで最も大切にしているのは？",
                 options: [
@@ -495,7 +495,7 @@
                 ]
             },
             {
-                id: 5,
+                id: 4,
                 title: "SNSの使い方について",
                 text: "SNSで発信する内容で最も多いのは？",
                 options: [
@@ -506,7 +506,7 @@
                 ]
             },
             {
-                id: 6,
+                id: 5,
                 title: "失敗した時の対処法",
                 text: "何かに失敗した時の行動で最も近いのは？",
                 options: [
@@ -517,7 +517,7 @@
                 ]
             },
             {
-                id: 7,
+                id: 6,
                 title: "新しいことを学ぶ方法",
                 text: "新しいことを学ぶ時の方法は？",
                 options: [
@@ -528,7 +528,7 @@
                 ]
             },
             {
-                id: 8,
+                id: 7,
                 title: "1年後の目標について",
                 text: "1年後の目標で最も重要なのは？",
                 options: [
@@ -539,7 +539,7 @@
                 ]
             },
             {
-                id: 9,
+                id: 8,
                 title: "サークル・部活動について",
                 text: "サークルや部活動への参加姿勢は？",
                 options: [
@@ -550,7 +550,7 @@
                 ]
             },
             {
-                id: 10,
+                id: 9,
                 title: "お金の使い方について",
                 text: "お小遣いやバイト代の使い方は？",
                 options: [
@@ -561,7 +561,7 @@
                 ]
             },
             {
-                id: 11,
+                id: 10,
                 title: "理想の休日の過ごし方",
                 text: "理想的な休日の過ごし方は？",
                 options: [
@@ -572,7 +572,7 @@
                 ]
             },
             {
-                id: 12,
+                id: 11,
                 title: "ライバルとの関係",
                 text: "同級生や友達との競争について、どう思う？",
                 options: [
@@ -583,7 +583,7 @@
                 ]
             },
             {
-                id: 13,
+                id: 12,
                 title: "就職・進路選択について",
                 text: "就職・進路選択で最も重視することは？",
                 options: [
@@ -594,7 +594,7 @@
                 ]
             },
             {
-                id: 14,
+                id: 13,
                 title: "理想的な環境について",
                 text: "勉強や活動をする理想的な環境は？",
                 options: [
@@ -605,7 +605,7 @@
                 ]
             },
             {
-                id: 15,
+                id: 14,
                 title: "達成感を感じる瞬間",
                 text: "達成感を一番感じるのはどんな時？",
                 options: [
@@ -616,7 +616,7 @@
                 ]
             },
             {
-                id: 16,
+                id: 15,
                 title: "困難への向き合い方",
                 text: "大きな困難に直面した時の考え方は？",
                 options: [
@@ -627,7 +627,7 @@
                 ]
             },
             {
-                id: 17,
+                id: 16,
                 title: "チームでの役割について",
                 text: "グループワークでの理想的な自分の役割は？",
                 options: [
@@ -638,7 +638,7 @@
                 ]
             },
             {
-                id: 18,
+                id: 17,
                 title: "働く場所について",
                 text: "働く場所について、どう考える？",
                 options: [
@@ -649,7 +649,7 @@
                 ]
             },
             {
-                id: 19,
+                id: 18,
                 title: "10年後の理想の姿",
                 text: "10年後、どんな自分でありたい？",
                 options: [
@@ -660,7 +660,7 @@
                 ]
             },
             {
-                id: 20,
+                id: 19,
                 title: "一番大切にしたい価値観",
                 text: "人生で最も大切にしたい価値観は？",
                 options: [
@@ -870,7 +870,7 @@
 
         // 変数
         let currentQuestion = 0;
-        let answers = {};
+        let answers = [];  // 配列に変更
         let userInfo = {};
 
         // 診断開始
@@ -881,6 +881,9 @@
                 grade: document.getElementById('userGrade').value,
                 worry: document.getElementById('userWorry').value
             };
+
+            // 回答配列を初期化（20個のnullで埋める）
+            answers = new Array(20).fill(null);
 
             // UIを切り替え
             document.getElementById('intro').style.display = 'none';
@@ -904,11 +907,12 @@
                 <div class="question-title">${question.title}</div>
                 <div class="question-text">${question.text}</div>
                 <ul class="options">
-                    ${question.options.map(option => `
+                    ${question.options.map((option, optIndex) => `
                         <li class="option">
                             <label>
                                 <input type="radio" name="q${question.id}" value="${option.value}" 
-                                       ${answers[question.id] === option.value ? 'checked' : ''}>
+                                       ${answers[question.id] === option.value ? 'checked' : ''}
+                                       onchange="saveAnswer(${question.id}, '${option.value}')">
                                 <span>${option.text}</span>
                             </label>
                         </li>
@@ -923,15 +927,17 @@
                 </div>
             `;
             
-            // ラジオボタンのイベントリスナー
-            container.addEventListener('change', function(e) {
-                if (e.target.type === 'radio') {
-                    answers[question.id] = e.target.value;
-                    document.getElementById('nextBtn').disabled = false;
-                }
-            });
-            
             container.style.display = 'block';
+        }
+
+        // 回答保存（新しい関数）
+        function saveAnswer(questionId, value) {
+            answers[questionId] = value;
+            document.getElementById('nextBtn').disabled = false;
+            
+            // デバッグ用
+            console.log(`質問${questionId}: ${value}`);
+            console.log('現在の回答配列:', answers);
         }
 
         // 進捗更新
@@ -956,27 +962,35 @@
             }
         }
 
-        // 結果表示（修正版）
+        // 結果表示（完全に修正）
         function showResult() {
             // 集計
             const scores = { A: 0, B: 0, C: 0, D: 0 };
             
             // デバッグ用ログ
-            console.log('全回答:', answers);
+            console.log('最終回答配列:', answers);
             
             // 回答を集計
-            for (let i = 1; i <= questions.length; i++) {
-                if (answers[i]) {
-                    scores[answers[i]]++;
+            answers.forEach((answer, index) => {
+                if (answer && scores[answer] !== undefined) {
+                    scores[answer]++;
+                    console.log(`質問${index}: ${answer}`);
                 }
-            }
+            });
             
             console.log('集計結果:', scores);
             
             // 最多回答を取得
             const maxScore = Math.max(...Object.values(scores));
             const resultType = Object.keys(scores).find(key => scores[key] === maxScore);
-            const result = resultTypes[resultType];
+            
+            // 同点の場合はA→B→C→Dの優先順位で決定
+            let finalResultType = resultType;
+            if (!finalResultType || maxScore === 0) {
+                finalResultType = 'C'; // デフォルト
+            }
+            
+            const result = resultTypes[finalResultType];
             
             // UI切り替え
             document.getElementById('questionContainer').style.display = 'none';
@@ -1007,10 +1021,10 @@
                         <p><strong>■ より深く自分らしさについて学びたい方へ</strong></p>
                         <p>角田千鶴のnote「自分らしさ、迷子中。」</p>
                         <p>～学生時代の不安な今を抜け出して、自分らしいミライへ～（全4回・全て無料記事）</p>
-                        <p>🌸 第1回：みんなと違うのが怖いあなたへ</p>
-                        <p>🌸 第2回：あなたの「当たり前」が、実は強みかもしれない</p>
-                        <p>🌸 第3回：就活で「いい子」になろうとしてない？</p>
-                        <p>🌸 第4回：迷いながらも成長していく人の共通点</p>
+                        <p> 第1回：みんなと違うのが怖いあなたへ</p>
+                        <p>第2回：あなたの「当たり前」が、実は強みかもしれない</p>
+                        <p>第3回：就活で「いい子」になろうとしてない？</p>
+                        <p> 第4回：迷いながらも成長していく人の共通点</p>
                         <p><a href="https://note.com/sanyou34/n/n09a542d8c033" target="_blank" style="color: #667eea; text-decoration: underline;">→ noteで読む</a></p>
                         <p>🏢 一般社団法人ミライゴト</p>
                         <p>■ お問い合わせ：miraigoto34@gmail.com</p>
@@ -1028,7 +1042,7 @@
         // 診断やり直し
         function restartDiagnosis() {
             currentQuestion = 0;
-            answers = {};
+            answers = [];
             userInfo = {};
             
             document.getElementById('resultSection').style.display = 'none';
